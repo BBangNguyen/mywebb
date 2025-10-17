@@ -15,7 +15,6 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 Route::post('/cart/increase', [CartController::class, 'increase'])->name('cart.increase');
 Route::post('/cart/decrease', [CartController::class, 'decrease'])->name('cart.decrease');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('processCheckout');
