@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers\admin\user;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+
+class LoginController extends Controller
+{
+    use AuthorizesRequests, ValidatesRequests;
+    public function index(){
+        return view('admin.user.login', [
+            'title' => 'Đăng nhập hệ thống'
+        ]); 
+    }
+    public function store(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if(Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+            // 'level' => 1
+        ], $request->remember)){
+            return redirect()->route('admin');
+        }
+        return redirect()->back();
+    }
+}
