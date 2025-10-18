@@ -19,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Force HTTPS trên production (Railway)
-        if ($this->app->environment('production')) {
+        // Force HTTPS khi có X-Forwarded-Proto header (Railway, Heroku, etc.)
+        if (request()->header('X-Forwarded-Proto') === 'https') {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
     }
