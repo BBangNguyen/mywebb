@@ -29,8 +29,7 @@ class LoginController extends Controller
             // 'level' => 1
         ], $request->remember)){
             $request->session()->regenerate();
-            // Redirect to shop page instead of admin
-            return redirect()->route('products.index')->with('success', 'Đăng nhập thành công!');
+            return redirect()->route('admin')->with('success', 'Đăng nhập thành công!');
         }
         return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng!');
     }
