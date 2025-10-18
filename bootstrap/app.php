@@ -14,5 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // Log tất cả exceptions
+        $exceptions->reportable(function (Throwable $e) {
+            \Log::error('Application Exception', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+        });
     })->create();
