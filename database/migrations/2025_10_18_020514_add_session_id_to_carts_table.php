@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('carts', function (Blueprint $table) {
-            $table->string('session_id')->nullable()->after('quantity')->index();
+            // Check if column exists before adding
+            if (!Schema::hasColumn('carts', 'session_id')) {
+                $table->string('session_id')->nullable()->after('quantity')->index();
+            }
         });
     }
 
