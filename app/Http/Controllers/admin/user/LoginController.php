@@ -26,10 +26,16 @@ class LoginController extends Controller
         if(Auth::attempt([
             'email' => $request->email,
             'password' => $request->password,
-            // 'level' => 1
         ], $request->remember)){
             $request->session()->regenerate();
-            return redirect()->route('admin')->with('success', 'Đăng nhập thành công!');
+            
+            // Kiểm tra role và điều hướng
+            if(Auth::user()->role === 'admin'){
+                return redirect()->route('admin')->with('success', 'Chào mừng Admin!');
+            }
+            
+            // User thường → trang sản phẩm
+            return redirect()->route('products.index')->with('success', 'Đăng nhập thành công!');
         }
         return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng!');
     }

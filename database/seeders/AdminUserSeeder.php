@@ -18,6 +18,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('123456'),
+            'role' => 'admin',
         ]);
 
         // Tạo thêm user test
@@ -25,11 +26,12 @@ class AdminUserSeeder extends Seeder
             'name' => 'Nguyễn Văn Bằng',
             'email' => 'bang@example.com',
             'password' => Hash::make('123456'),
+            'role' => 'user',
         ]);
 
         echo "✅ Created users:\n";
-        echo "- admin@example.com / 123456\n";
-        echo "- bang@example.com / 123456\n";
+        echo "- admin@example.com / 123456 (Admin)\n";
+        echo "- bang@example.com / 123456 (User)\n";
     }
 }
 
