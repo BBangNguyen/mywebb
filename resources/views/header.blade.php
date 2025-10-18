@@ -38,6 +38,30 @@
                         <span id="cart_count" class="text-warning bg-light px-2 rounded">{{ $cartCount }}</span>
                     </h5>
                 </a>
+                
+                @auth
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ route('admin') }}">
+                            <i class="fas fa-tachometer-alt"></i> Admin Panel
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @else
+                <a href="{{ route('login') }}" class="nav-item nav-link">
+                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                </a>
+                @endauth
             </div>
         </div>
     </nav>
