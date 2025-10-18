@@ -9,8 +9,13 @@ use App\Http\Controllers\admin\user\RegisterController;
 use App\Http\Controllers\admin\MainController;
 use App\Http\Controllers\admin\MenuController;
 
+// Trang chủ redirect to login
+Route::get('/', function() {
+    return redirect()->route('login');
+});
+
 Route::get('/search', [ProductController::class, 'search'])->name('search');
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/increase', [CartController::class, 'increase'])->name('cart.increase');
