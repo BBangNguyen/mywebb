@@ -12,6 +12,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->integer('quantity')->default(1);
+            $table->string('session_id')->index(); // Thêm cột session_id
             $table->timestamps();
         });
     }
