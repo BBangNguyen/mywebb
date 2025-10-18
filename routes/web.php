@@ -9,10 +9,10 @@ use App\Http\Controllers\admin\user\RegisterController;
 use App\Http\Controllers\admin\MainController;
 use App\Http\Controllers\admin\MenuController;
 
-// Trang chủ redirect to login
+// Trang chủ - Landing page với Login/Register
 Route::get('/', function() {
-    return redirect()->route('login');
-});
+    return view('welcome');
+})->name('home');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
