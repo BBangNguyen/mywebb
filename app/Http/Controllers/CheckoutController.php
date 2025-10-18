@@ -9,7 +9,19 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        $cartItems = Cart::with('product')->get();
+        // Lấy session ID hiện tại
+        $sessionId = session()->getId();
+        
+        // Lấy cart items của user hiện tại
+        $cartItems = Cart::where('session_id', $sessionId)
+                         ->with('product')
+                         ->get();
+        
+        // Nếu giỏ hàng trống, redirect về trang giỏ hàng
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart')->with('error', 'Giỏ hàng trống!');
+        }
+        
         $totalQuantity = $cartItems->sum('quantity');
         $total = $cartItems->sum(function ($item) {
             return $item->product->product_price * $item->quantity;
@@ -41,7 +53,9 @@ class CheckoutController extends Controller
         //     'customer_name' => $request->name,
         //     'customer_phone' => $request->phone,
         //     'customer_address' => $request->address,
-        //     'total' => $cartItems->sum(fn($item) => $item->product->product_price * $item->quantity),
+        //     'total' => $cartItems->sum(function($item) {
+        //         return $item->product->product_price * $item->quantity;
+        //     }),
         //     'status' => 'pending'
         // ]);
         
