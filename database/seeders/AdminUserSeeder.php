@@ -13,25 +13,21 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Tạo admin user
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('123456'),
-            'role' => 'admin',
-        ]);
+        // Cập nhật role cho tài khoản admin duy nhất
+        $adminUser = User::where('email', 'bangcn12@gmail.com')->first();
+        if ($adminUser) {
+            $adminUser->update(['role' => 'admin']);
+            echo "✅ Updated bangcn12@gmail.com to Admin role\n";
+        } else {
+            echo "⚠️ bangcn12@gmail.com not found\n";
+        }
 
-        // Tạo thêm user test
-        User::create([
-            'name' => 'Nguyễn Văn Bằng',
-            'email' => 'bang@example.com',
-            'password' => Hash::make('123456'),
-            'role' => 'user',
-        ]);
-
-        echo "✅ Created users:\n";
-        echo "- admin@example.com / 123456 (Admin)\n";
-        echo "- bang@example.com / 123456 (User)\n";
+        // Đảm bảo tất cả tài khoản khác là user
+        User::where('email', '!=', 'bangcn12@gmail.com')->update(['role' => 'user']);
+        
+        echo "✅ Role configuration:\n";
+        echo "- bangcn12@gmail.com / 123456 → Admin Panel\n";
+        echo "- All other accounts → Shop Page\n";
     }
 }
 
