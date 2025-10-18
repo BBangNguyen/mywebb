@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\admin\user\LoginController;
+use App\Http\Controllers\admin\user\RegisterController;
 use App\Http\Controllers\admin\MainController;
 use App\Http\Controllers\admin\MenuController;
 
@@ -20,6 +21,11 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('processCheckout');
 Route::get('/admin/user/login', [LoginController::class, 'index'])->name('login');
 Route::post('/admin/user/login/store', [LoginController::class, 'store']);
+Route::post('/admin/user/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Register routes
+Route::get('/admin/user/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/admin/user/register/store', [RegisterController::class, 'store'])->name('register.store');
 
 Route::middleware('auth')->group(function(){
     Route::prefix('admin')->group(function(){

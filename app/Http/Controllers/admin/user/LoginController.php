@@ -28,8 +28,18 @@ class LoginController extends Controller
             'password' => $request->password,
             // 'level' => 1
         ], $request->remember)){
-            return redirect()->route('admin');
+            $request->session()->regenerate();
+            return redirect()->route('admin')->with('success', 'Đăng nhập thành công!');
         }
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng!');
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('login')->with('success', 'Đã đăng xuất thành công!');
     }
 }

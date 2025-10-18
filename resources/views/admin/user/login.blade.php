@@ -12,13 +12,20 @@
           <form action="/admin/user/login/store" method="post">
           @csrf
             <div class="input-group mb-3">
-              <input type="email" name="email" class="form-control" placeholder="Email" />
+              <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
+            @error('email')
+              <div class="text-danger mb-2">{{ $message }}</div>
+            @enderror
+
             <div class="input-group mb-3">
-              <input type="password" name="password" class="form-control" placeholder="Password" />
+              <input type="password" name="password" class="form-control" placeholder="Password" required />
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
             </div>
+            @error('password')
+              <div class="text-danger mb-2">{{ $message }}</div>
+            @enderror
             <!--begin::Row-->
             <div class="row">
               <div class="col-8">
@@ -37,6 +44,10 @@
             </div>
             <!--end::Row-->
           </form>
+
+          <p class="mt-3 mb-1">
+            <a href="{{ route('register') }}">Chưa có tài khoản? Đăng ký ngay</a>
+          </p>
         </div>
       </div>
     </div>

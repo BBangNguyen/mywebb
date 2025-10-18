@@ -24,6 +24,31 @@
             <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
             <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
           </ul>
+          <!--end::Start Navbar Links-->
+          
+          <!--begin::End Navbar Links-->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a href="#" class="dropdown-item">
+                  <i class="bi bi-person me-2"></i> Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                  @csrf
+                  <button type="submit" class="dropdown-item text-danger">
+                    <i class="bi bi-box-arrow-right me-2"></i> Đăng xuất
+                  </button>
+                </form>
+              </div>
+            </li>
+          </ul>
+          <!--end::End Navbar Links-->
+        </div>
+        <!--end::Container-->
       </nav>
       @include('admin.sidebar')
       <main class="app-main">
